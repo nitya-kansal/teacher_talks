@@ -1,16 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import SpeechToTextSummarization from './SpeechToTextSummarization';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Hello, I am Teacher Talks App. 
-        </p>
-      </header>
+      <SpeechToTextSummarization />
     </div>
   );
 }
 
 export default App;
+

@@ -122,6 +122,10 @@ const SpeechToTextSummarization = () => {
         <textarea rows="10" cols="180" value={summary} readOnly placeholder="  Generating study material..."/>
     </div>
 
+    <div className="print">
+        <button>Print</button>
+    </div>
+
     </div>
   );
 };

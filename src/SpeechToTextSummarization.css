@@ -129,6 +129,29 @@
     margin-top: 40px;
   }
   
+.print button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: solid black 1px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+        
+.print button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    }
+        
+.print button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+
   .result-container {
     display: flex;
     justify-content: space-between;

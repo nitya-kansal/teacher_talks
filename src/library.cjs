@@ -1,12 +1,11 @@
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import fs from "fs/promises";
-import dotenv from "dotenv";
-
 function visionToText(imageFilePath) {
 
+    const { GoogleGenerativeAI } = require("@google/generative-ai");
+    //const { dotenv } = require("dotenv")
 
-    dotenv.config();
+    //dotenv.config();
+    require('dotenv').config();
 
     //const gemini_api_key = process.env.API_KEY;
     const googleAI = new GoogleGenerativeAI("AIzaSyDPi0XoRJMxOgnrHhWU4OgiQu2MOtPjhHg");
@@ -21,20 +20,22 @@ function visionToText(imageFilePath) {
     model: "gemini-pro-vision",
     geminiConfig,
     });
-    generate()
+    generate(imageFilePath, geminiModel);
 
 };
 
 
-const generate = async () => {
+const generate = async (imageFilePath, geminiModel) => {
   try {
+    const fs = require("fs/promises");
     // Read image file
-    const filePath = "imageFilePath.jpeg";
-    const imageFile = await fs.readFile(filePath);
+    
+
+    const imageFile = await fs.readFile(imageFilePath);
     const imageBase64 = imageFile.toString("base64");
  
     const promptConfig = [
-      { text: "find x and tell me how u got it" },
+      { text: "explain to me whats on screen" },
       {
         inlineData: {
           mimeType: "image/jpeg",
@@ -54,11 +55,14 @@ const generate = async () => {
   }
 };
 
-new function speechToText(pathToAudioFile) {
-    const { Leopard } = require("@picovoice/leopard-node");
-    const accessKey = "nY9GJz9JbNi2KbmJ/VxrmDwoOPk/XKDi8LE45lFPGYpSlL6t03ZlsA==";
-    let leopard = new Leopard(accessKey);
-    const result = leopard.processFile('pathToAudioFile.wav');
-    console.log(result.transcript);
-    return result.transcript;
-}
+function speechToText(pathToAudioFile) {
+
+  const { Leopard } = require("@picovoice/leopard-node");
+  const accessKey = "nY9GJz9JbNi2KbmJ/VxrmDwoOPk/XKDi8LE45lFPGYpSlL6t03ZlsA==";
+  let leopard = new Leopard(accessKey);
+  const result = leopard.processFile('harvard.wav');
+  console.log(result.transcript);
+  };
+
+
+module.exports = { visionToText, speechToText};

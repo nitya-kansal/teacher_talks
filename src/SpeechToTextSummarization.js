@@ -78,7 +78,7 @@ const SpeechToTextSummarization = () => {
 
   return (
     <div className="container">
-      <h2>Speech to Text Summarization</h2>
+      <h2>Input to Text Conversion</h2>
       <div className="instructions">
         <p>
             <strong> Select the type of input, upload a file, and we'll transcribe it
@@ -94,22 +94,32 @@ const SpeechToTextSummarization = () => {
         </select>
         <input type="file" accept={inputType === 'image' ? 'image/*' : 'audio/*, video/*'} onChange={handleFileChange} />
         <button onClick={transcribeAndSummarize} disabled={loading}>
-          {loading ? 'Transcribing...' : 'Transcribe and Summarize'}
+          {loading ? 'Transcribing...' : 'Transcribe'}
         </button>
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     <div className="result-container">
         <div className="transcription">
          <h3>Transcription:</h3>
-            <textarea rows="10" cols="180" value={transcription} readOnly />
+            <textarea rows="10" cols="180" value={transcription} readOnly placeholder="  Waiting for transcription..."/>
         </div>
     </div>
     <div className="summary-button">
-        <button>Summary</button>
+        <button>Summarize</button>
     </div>
     <div className="summarization">
         <h3>Summary:</h3>
-        <textarea rows="10" cols="180" value={summary} readOnly />
+        <textarea rows="10" cols="180" value={summary} readOnly placeholder="  Generating summary..."/>
+    </div>
+    <div className="button-container">
+    <div className="quiz-button">
+        <button>Generate Quiz</button>
+        <button>Generate Notes</button>
+    </div>
+    </div>
+    <div className="quizOrNotes">
+        <h3>Study Material:</h3>
+        <textarea rows="10" cols="180" value={summary} readOnly placeholder="  Generating study material..."/>
     </div>
 
     </div>

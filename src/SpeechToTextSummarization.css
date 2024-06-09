@@ -20,33 +20,21 @@
   }
   
   .input-container button {
+    margin-top: 10px;
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border: solid black 1px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
- .summary-button{
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-
-  .summary-button:hover{
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-
-  .input-container button:hover {
-    background-color: #0056b3;
+  .input-container button:hover{
+    background-color: #0056b3; 
+    transform: translateY(-2px);  
   }
   
   .input-container button:disabled {
@@ -54,10 +42,91 @@
     cursor: not-allowed;
   }
   
+  .summary-button button {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: solid black 1px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+
+.summary-button button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    }
+
+.summary-button button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+
+
+.quiz-button button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: solid black 1px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    }
+    
+.quiz-button button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    }
+    
+.quiz-button button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+
+.notes-button button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: solid black 1px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+        
+.notes-button button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    }
+        
+.notes-button button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+
   .error-message {
     color: #ff0000;
     font-size: 14px;
     margin-bottom: 10px;
+  }
+
+  .button-container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .quizOrNotes{
+    margin-top: 40px;
   }
   
   .result-container {
@@ -65,8 +134,7 @@
     justify-content: space-between;
   }
   
-  .transcription,
-  .summary {
+  .transcription, .summary {
     flex: 1;
   }
   

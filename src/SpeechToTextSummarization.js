@@ -8,6 +8,7 @@ const SpeechToTextSummarization = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [inputType, setInputType] = useState('audio');
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -23,11 +24,28 @@ const SpeechToTextSummarization = () => {
 
       setLoading(true);
 
-      const apiKey = 'YOUR_GOOGLE_CLOUD_API_KEY';
-      const apiUrl = `https://speech.googleapis.com/v1p1beta1/speech:recognize?key=${apiKey}`;
-
-      const formData = new FormData();
-      formData.append('file', file);
+      let apiUrl;
+      let formData = new FormData();
+      if (inputType === 'audio' || inputType === 'video') {
+        apiUrl = 'https://speech.googleapis.com/v1p1beta1/speech:recognize?key=YOUR_GOOGLE_CLOUD_API_KEY';
+        formData.append('file', file);
+      } else if (inputType === 'image') {
+        apiUrl = 'https://vision.googleapis.com/v1/images:annotate?key=YOUR_GOOGLE_CLOUD_API_KEY';
+        formData.append('requests', JSON.stringify({
+          image: {
+            content: file,
+          },
+          features: [
+            {
+              type: 'TEXT_DETECTION',
+            },
+          ],
+        }));
+      } else {
+        setErrorMessage('Unsupported input type.');
+        setLoading(false);
+        return;
+      }
 
       const response = await axios.post(apiUrl, formData, {
         headers: {
@@ -41,12 +59,14 @@ const SpeechToTextSummarization = () => {
         },
       });
 
-      const transcript = response.data.results[0].alternatives[0].transcript;
-      setTranscription(transcript);
-
-      // Implement summarization logic here
-      // For this example, just set the summary to the transcription
-      setSummary(transcript);
+      if (inputType === 'audio' || inputType === 'video') {
+        const transcript = response.data.results[0].alternatives[0].transcript;
+        setTranscription(transcript);
+      } else if (inputType === 'image') {
+        const textAnnotations = response.data.responses[0].textAnnotations;
+        const text = textAnnotations && textAnnotations.length > 0 ? textAnnotations[0].description : '';
+        setTranscription(text);
+      }
 
       setLoading(false);
     } catch (error) {
@@ -61,27 +81,37 @@ const SpeechToTextSummarization = () => {
       <h2>Speech to Text Summarization</h2>
       <div className="instructions">
         <p>
-            <strong>Welcome to the Speech to Text Summarization tool. Upload an audio or video file, and we'll transcribe it
+            <strong> Select the type of input, upload a file, and we'll transcribe it
             and provide a summary.</strong>
         </p>
       </div>
+
       <div className="input-container">
-        <input type="file" accept="audio/*, video/*" onChange={handleFileChange} />
+        <select value={inputType} onChange={(e) => setInputType(e.target.value)}>
+          <option value="audio">Audio</option>
+          <option value="video">Video</option>
+          <option value="image">Image</option>
+        </select>
+        <input type="file" accept={inputType === 'image' ? 'image/*' : 'audio/*, video/*'} onChange={handleFileChange} />
         <button onClick={transcribeAndSummarize} disabled={loading}>
           {loading ? 'Transcribing...' : 'Transcribe and Summarize'}
         </button>
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <div className="result-container">
+    <div className="result-container">
         <div className="transcription">
-          <h3>Transcription:</h3>
-          <p>{transcription}</p>
+         <h3>Transcription:</h3>
+            <textarea rows="10" cols="180" value={transcription} readOnly />
         </div>
-        <div className="summary">
-          <h3>Summary:</h3>
-          <p>{summary}</p>
-        </div>
-      </div>
+    </div>
+    <div className="summary-button">
+        <button>Summary</button>
+    </div>
+    <div className="summarization">
+        <h3>Summary:</h3>
+        <textarea rows="10" cols="180" value={summary} readOnly />
+    </div>
+
     </div>
   );
 };

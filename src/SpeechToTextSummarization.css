@@ -1,8 +1,8 @@
 .container {
-    max-width: 600px;
+    max-width: 1400px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f1f1f1;
+    background-color: #f5eeee;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -29,6 +29,22 @@
     transition: background-color 0.3s ease;
   }
   
+ .summary-button{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+  .summary-button:hover{
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
   .input-container button:hover {
     background-color: #0056b3;
   }

@@ -13,7 +13,6 @@ function App() {
 
   return (
     <div className="App">
-      <SpeechToTextSummarization />
      {!loginSucess && <Login successHandler ={onSuccessHandlerParent}/>}
       {loginSucess && <SpeechToTextSummarization />}
     </div>
